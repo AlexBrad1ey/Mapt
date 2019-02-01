@@ -17,6 +17,21 @@ const imageStyle = {
 };
 
 class Tweet extends React.Component {
+    static propTypes = {
+        tweet: (properties, propertyName, componentName) => {
+            const tweet = properties[propertyName];
+    
+            if (!tweet) {
+                return new Error('Tweet must be set.');
+            }
+    
+            if (!tweet.media) {
+                return new Error('Tweet must have an image');
+            }
+        },
+        onImageClick: PropTypes.func
+    };
+    
     handleImageClick() {
         const { tweet, onImageClick } = this.props;
 
@@ -40,20 +55,5 @@ class Tweet extends React.Component {
         );
     }
 }
-
-Tweet.PropTypes = {
-    tweet: (properties, propertyName, componentName) => {
-        const tweet = properties[propertyName];
-
-        if (!tweet) {
-            return new Error('Tweet must be set.');
-        }
-
-        if (!tweet.media) {
-            return new Error('Tweet must have an image');
-        }
-    },
-    onImageClick: PropTypes.func
-};
 
 export default Tweet;
